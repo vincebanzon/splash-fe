@@ -1,3 +1,4 @@
+import { Chat } from "./chat";
 import LikeBUtton from "./like-button";
 
 function Header({ title }) {
@@ -16,6 +17,7 @@ return (
             ))}
         </ul>
         <LikeBUtton />
+        <Chat />
     </div>
 )
 }

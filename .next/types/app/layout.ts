@@ -1,4 +1,4 @@
-// File: C:\Users\gec-dev\Documents\New folder - vince\Vince\Splash\splash-fe\app\layout.js
+// File: C:\Users\gec-dev\Documents\New folder - vince\Vince\Splash\src\Vince\splash-fe\app\layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

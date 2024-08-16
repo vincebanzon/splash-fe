@@ -1,4 +1,4 @@
-// File: C:\Users\gec-dev\Documents\New folder - vince\Vince\Splash\splash-fe\app\page.jsx
+// File: C:\Users\gec-dev\Documents\New folder - vince\Vince\Splash\src\Vince\splash-fe\app\page.jsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
