@@ -1,4 +1,5 @@
 import { Chat } from "./chat";
+import './variable.css';
 
 function Header({ title }) {
 return <h1>{title ? title : "Default title"}</h1>

@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
-let SystemMessageInterval;
-let SystemMessageIndex = 0;
-const SystemMessage = [{
+let RobotMessageInterval;
+let RobotMessageIndex = 0;
+const RobotMessages = [{
   author: "CPU 1",
   body: "Welcome to the React Chat app",
 }, {
@@ -14,17 +14,19 @@ const SystemMessage = [{
 }, {
   author: "CPU 1",
   body: "I could play this game for hours!"
-}];
+}]
+
+const SystemMessage = [];
 
 // create a new socket instance with localhost URL
 const socket = io('http://localhost:4000', { autoConnect: false });
 
 export function Chat({ currentUser, onLogout }) {
   const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState([SystemMessage]);
+  const [messages, setMessages] = useState([]);
 
   const sendNextBotChat = () => {
-    let systemMessage = SystemMessage[SystemMessageIndex++];
+    let message = RobotMessage[RobotMessageIndex++];
 
     // terminate chat bot
     if (!systemMessage) {
@@ -40,12 +42,12 @@ export function Chat({ currentUser, onLogout }) {
   }
 
   const startBotChats = () => {
-    clearInterval(SystemMessageInterval)
-    SystemMessageInterval = setInterval(sendNextBotChat, 3000)
+    clearInterval(RobotMessageInterval)
+    RobotMessageInterval = setInterval(sendNextBotChat, 3000)
   }
 
   const endBotChats = () => {
-    clearInterval(SystemMessageInterval)
+    clearInterval(RobotMessageInterval)
   }
 
   useEffect(() => {
@@ -63,7 +65,6 @@ export function Chat({ currentUser, onLogout }) {
 
     // listen chat event messages
     socket.on("chat", (newMessage) => {
-      console.log("New message added", newMessage);
       setMessages((previousMessages) => [...previousMessages, newMessage]);
     });
 
@@ -89,14 +90,14 @@ export function Chat({ currentUser, onLogout }) {
   };
 
   return (
-    <div className="chat">
-      <div className="chat-header">
-        <span>React Chat App</span>
-        <button className="button" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
-      <div className="chat-message-list">
+    <div className="chat" style={{
+      border: "1px solid var(--border-color-alt)",
+      borderRadius: "var(--border-radius)"
+    }}>
+      <div className="chat-message-list" style={{
+        backgroundColor: "var(--bg-alt)",
+        paddingg: "12px"
+      }}>
         {messages.map((message, idx) => (
           <div
             key={idx}
