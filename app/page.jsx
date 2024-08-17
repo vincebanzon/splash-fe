@@ -1,5 +1,4 @@
 import { Chat } from "./chat";
-import LikeBUtton from "./like-button";
 
 function Header({ title }) {
 return <h1>{title ? title : "Default title"}</h1>
@@ -10,14 +9,7 @@ const names = ["Ada Lovelace", "Grace Hopper", "Margaret Hamilton"]
 
 return (
     <div>
-        <Header title="Develop. Preview. Ship." />
-        <ul>
-            {names.map((name) => (
-            <li key={name}>{name}</li>
-            ))}
-        </ul>
-        <LikeBUtton />
-        <Chat currentUser="User"/>
+        <Chat currentUser="CPU 1"/>
     </div>
 )
 }

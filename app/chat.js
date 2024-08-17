@@ -3,11 +3,18 @@
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
-const SystemMessage = {
-  id: 0,
+let SystemMessageInterval;
+let SystemMessageIndex = 0;
+const SystemMessage = [{
+  author: "CPU 1",
   body: "Welcome to the React Chat app",
-  author: "Bot",
-};
+}, {
+  author: "CPU 2",
+  body: "How are you?",
+}, {
+  author: "CPU 1",
+  body: "I could play this game for hours!"
+}];
 
 // create a new socket instance with localhost URL
 const socket = io('http://localhost:4000', { autoConnect: false });
@@ -16,15 +23,42 @@ export function Chat({ currentUser, onLogout }) {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState([SystemMessage]);
 
+  const sendNextBotChat = () => {
+    let systemMessage = SystemMessage[SystemMessageIndex++];
+
+    // terminate chat bot
+    if (!systemMessage) {
+      endBotChats();
+      return;
+    }
+
+    // send chat bot message
+    socket.emit("chat", {
+      author: systemMessage.author,
+      body: systemMessage.body
+    });
+  }
+
+  const startBotChats = () => {
+    clearInterval(SystemMessageInterval)
+    SystemMessageInterval = setInterval(sendNextBotChat, 3000)
+  }
+
+  const endBotChats = () => {
+    clearInterval(SystemMessageInterval)
+  }
+
   useEffect(() => {
-    socket.connect(); // connect to socket
+    socket.connect(currentUser); // connect to socket
 
     socket.on("connect", () => { // fire when we have connection
       console.log("Socket connected");
+      startBotChats()
     });
 
     socket.on("disconnect", () => { // fire when socked is disconnected
       console.log("Socket disconnected");
+      endBotChats()
     });
 
     // listen chat event messages
@@ -69,10 +103,19 @@ export function Chat({ currentUser, onLogout }) {
             className={`chat-message ${
               currentUser === message.author ? "outgoing" : ""
             }`}
+            style={{marginBlock: "0.5rem"}}
           >
             <div className="chat-message-wrapper" style={{display: "flex"}}>
-              <span className="chat-message-author" style={{marginRight: "1rem"}}>{message.author}:</span>
-              <div className="chat-message-bubble">
+              { message.author && <span className="chat-message-author" style={{
+                padding: "0.4rem 1rem 0 0",
+                color: "#A93064"
+              }}>{message.author}:</span>}
+              <div className="chat-message-bubble" style={{
+                backgroundColor: message.author && "rgb(63, 70, 89)",
+                padding: "0.4rem",
+                borderRadius: "6px",
+                color: message.author && "rgb(218, 229, 253)"
+              }}>
                 <span className="chat-message-body"> {message.body}</span>
               </div>
             </div>
