@@ -70,10 +70,10 @@ export function Chat({ currentUser, onLogout }) {
               currentUser === message.author ? "outgoing" : ""
             }`}
           >
-            <div className="chat-message-wrapper">
-              <span className="chat-message-author">{message.author}</span>
+            <div className="chat-message-wrapper" style={{display: "flex"}}>
+              <span className="chat-message-author" style={{marginRight: "1rem"}}>{message.author}:</span>
               <div className="chat-message-bubble">
-                <span className="chat-message-body">{message.body}</span>
+                <span className="chat-message-body"> {message.body}</span>
               </div>
             </div>
           </div>

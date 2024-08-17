@@ -17,7 +17,7 @@ return (
             ))}
         </ul>
         <LikeBUtton />
-        <Chat />
+        <Chat currentUser="User"/>
     </div>
 )
 }
