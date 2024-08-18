@@ -1,7 +1,16 @@
 :root {
   --bg: #15191F;
   --bg-alt: #191F27;
+  --bg-alt-next: #313945;
   --border-color: #000;
   --border-color-alt: #616b82;
   --border-radius: 8px;
+}
+
+.chat-composer input,
+.chat-composer button {
+  height: 40px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-radius);
+  color: white;
 }

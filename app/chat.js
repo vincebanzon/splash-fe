@@ -92,11 +92,14 @@ export function Chat({ currentUser, onLogout }) {
   return (
     <div className="chat" style={{
       border: "1px solid var(--border-color-alt)",
-      borderRadius: "var(--border-radius)"
+      borderRadius: "var(--border-radius)",
+      background: "var(--bg-alt-next)"
     }}>
       <div className="chat-message-list" style={{
         backgroundColor: "var(--bg-alt)",
-        paddingg: "12px"
+        paddingg: "12px",
+        height: "125px",
+        overflow: "scroll"
       }}>
         {messages.map((message, idx) => (
           <div
@@ -104,7 +107,7 @@ export function Chat({ currentUser, onLogout }) {
             className={`chat-message ${
               currentUser === message.author ? "outgoing" : ""
             }`}
-            style={{marginBlock: "0.5rem"}}
+            style={{padding: "0.5rem"}}
           >
             <div className="chat-message-wrapper" style={{display: "flex"}}>
               { message.author && <span className="chat-message-author" style={{
@@ -123,14 +126,30 @@ export function Chat({ currentUser, onLogout }) {
           </div>
         ))}
       </div>
-      <div className="chat-composer">
+      <div className="chat-composer" style={{
+        display: "flex",
+        gap: "1rem",
+        padding: "1rem"
+        }}>
         <input
           className="chat-composer-input"
           placeholder="Type message here"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleSendMessage}
+          style={{
+            backgroundColor: "var(--bg-alt)",
+            flex: 1,
+            paddingInline: "0.5rem"
+          }}
         />
+        <button
+          className="chat-composer-send"
+          style={{
+            paddingInline: "2rem",
+            background: "linear-gradient(to right, #a43669, #fc5f46)"
+          }}
+        >Start</button>
       </div>
     </div>
   );
